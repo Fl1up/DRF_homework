@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.fields import SerializerMethodField
 
 from main.vehicle.models import Course, Payment, Lesson
 
@@ -18,7 +19,7 @@ class LessonSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     lessons_information = PaymentSerializer(source="payment", many=True)
     lessons = LessonSerializer(source="payment", many=True)
-    lessons_count = LessonSerializer(source="payment", many=True)  # вывод числа
+    lessons_count = SerializerMethodField(source="payment")  # вывод числа
 
     class Meta:
         model = Course
