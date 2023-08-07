@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -14,6 +15,7 @@ class Course(models.Model):
     title = models.CharField(max_length=50, verbose_name="Название")
     preview = models.ImageField(verbose_name="Превью", **NULLABLE)
     description = models.TextField(verbose_name="Описание", **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -29,6 +31,7 @@ class Lesson(models.Model):
     preview = models.ImageField(verbose_name="Превью", **NULLABLE)
     description = models.TextField(verbose_name="Описание", **NULLABLE)
     url_video = models.CharField(max_length=50, verbose_name="Ссылка на видео", default="")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -39,8 +42,8 @@ class Lesson(models.Model):
 
 
 class Payment(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True, related_name="payment")  # обращение через ключевое слово, а не через payment_set
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, null=True, blank=True, related_name="payment")  # обращение через ключевое слово, а не через payment_set
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True, related_name="payment")  # related_name обращение через ключевое слово, а не через payment_set
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, null=True, blank=True, related_name="payment")  # related_name обращение через ключевое слово, а не через payment_set
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     payment_date = models.DateField(verbose_name="Дата оплаты", auto_now_add=True)

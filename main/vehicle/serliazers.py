@@ -17,8 +17,8 @@ class LessonSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    lessons_information = PaymentSerializer(source="payment", many=True)
-    lessons = LessonSerializer(source="payment", many=True)
+    lessons_information = PaymentSerializer(source="payment", many=True)  # Указываем, что на вход подаётся набор записей
+    lessons = LessonSerializer(source="payment", many=True)  # Указываем, что на вход подаётся набор записей
     lessons_count = SerializerMethodField(source="payment")  # вывод числа
 
     class Meta:
@@ -27,7 +27,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_lessons_view(self, obj):
         lessons = Lesson.objects.filter(course=obj)
-        return LessonSerializer(lessons, many=True).data
+        return LessonSerializer(lessons, many=True).data  # Указываем, что на вход подаётся набор записей
 
     def get_lessons_information_view(self, obj):
         return obj.lesson
@@ -46,7 +46,7 @@ class LessonPaymentSerializer(serializers.ModelSerializer):  # конкретн�
 
 
 class LessonCreateSerializer(serializers.ModelSerializer):
-    payment = PaymentSerializer(many=True)
+    payment = PaymentSerializer(many=True)  # Указываем, что на вход подаётся набор записей
 
     class Meta:
         model = Lesson
@@ -64,7 +64,7 @@ class LessonCreateSerializer(serializers.ModelSerializer):
 
 
 class CourseCreateSerializer(serializers.ModelSerializer):
-    payment = PaymentSerializer(many=True)
+    payment = PaymentSerializer(many=True)  # Указываем, что на вход подаётся набор записей
 
     class Meta:
         model = Course

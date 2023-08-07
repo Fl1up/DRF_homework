@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    "django_filters",
-    "rest_framework",
+    "django_filters",  # фильтр
+    "rest_framework",   # сам фреймворк
 
     "main.users",
     "main.vehicle",
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -132,3 +132,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = "users.User"
+
+
+"""
+Настройки прав доступа
+    'DEFAULT_PERMISSION_CLASSES'='rest_framework.permissions.IsAuthenticated' - закрывает от пользователей не аутентифицированных 
+     'DEFAULT_PERMISSION_CLASSES'=rest_framework.permissions.AllowAny' - дает доступ ко всему что не выбранно  
+"""
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
