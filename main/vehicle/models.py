@@ -17,6 +17,7 @@ class Course(models.Model):
     description = models.TextField(verbose_name="Описание", **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
+
     def __str__(self):
         return f"{self.title}"
 
@@ -30,7 +31,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=50, verbose_name="Название", default="")
     preview = models.ImageField(verbose_name="Превью", **NULLABLE)
     description = models.TextField(verbose_name="Описание", **NULLABLE)
-    url_video = models.CharField(max_length=50, verbose_name="Ссылка на видео", default="")
+    url_video = models.CharField(max_length=50, verbose_name="Ссылка на видео", default="", **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
@@ -63,3 +64,9 @@ class Payment(models.Model):
     class Meta:
         verbose_name = "Оплата"
         verbose_name_plural = "Оплаты"
+
+
+class CourseSubscription(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс")
+    subscribed = models.BooleanField(default=False)

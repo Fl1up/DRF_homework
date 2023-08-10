@@ -4,7 +4,8 @@ from main.vehicle.apps import VehicleConfig
 from rest_framework.routers import DefaultRouter
 
 from main.vehicle.views import CourseViewSet, LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
-    LessonUpdateAPIView, LessonDestroyAPIView, PaymentCreateAPIView, LessonPaymentAPIView, PaymentListAPIView
+    LessonUpdateAPIView, LessonDestroyAPIView, PaymentCreateAPIView, LessonPaymentAPIView, PaymentListAPIView, \
+    SubscribeCourseView, UnsubscribeCourseView
 
 # все для ViewSet
 app_name = VehicleConfig.name
@@ -24,5 +25,7 @@ urlpatterns = [
     path("Payment/", PaymentListAPIView.as_view(), name="payment-list"),
     path("Payment/create/", PaymentCreateAPIView.as_view(), name="payment-create"),
     path("Lesson/Payment/", LessonPaymentAPIView.as_view(), name="lesson-payment"),
+    path('Courses/<int:course_id>/subscribe/', SubscribeCourseView.as_view(), name="subscribe"),
+    path('Courses/<int:course_id>/unsubscribe/', UnsubscribeCourseView.as_view(), name="unsubscribe"),
 
 ] + router.urls
