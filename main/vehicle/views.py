@@ -1,3 +1,5 @@
+import stripe
+from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
@@ -14,6 +16,7 @@ from main.vehicle.serializers import CourseSerializer, LessonSerializer, Payment
 
 
 class CourseViewSet(ModelViewSet):  # все для ViewSet
+    """Course View"""
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [AllowAny]  # для не автор пользователей этого видно не будет(ошибка по выводу инфы)
@@ -25,6 +28,7 @@ class CourseViewSet(ModelViewSet):  # все для ViewSet
 
 
 class LessonCreateAPIView(generics.CreateAPIView):  # все для Generic
+    """Create Lesson"""
     serializer_class = LessonCreateSerializer
     permission_classes = [AllowAny]
 
@@ -35,6 +39,7 @@ class LessonCreateAPIView(generics.CreateAPIView):  # все для Generic
 
 
 class LessonListAPIView(generics.ListAPIView):
+    """Lesson List"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [AllowAny]
@@ -42,28 +47,33 @@ class LessonListAPIView(generics.ListAPIView):
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
+    """Lesson Retrive"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [AllowAny]
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
+    """Lesson Updaate"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [AllowAny]
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
+    """Lesson Delete"""
     queryset = Lesson.objects.all()
     permission_classes = [AllowAny]
 
 
 class PaymentCreateAPIView(generics.CreateAPIView):
+    """Payment Create"""
     serializer_class = PaymentSerializer
     permission_classes = [AllowAny]
 
 
 class PaymentListAPIView(generics.ListAPIView):  # Фильтр
+    """Payment List"""
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
     filter_backends = [DjangoFilterBackend, OrderingFilter]
@@ -73,13 +83,15 @@ class PaymentListAPIView(generics.ListAPIView):  # Фильтр
 
 
 class LessonPaymentAPIView(generics.ListAPIView):
+    """Lesson Pyment"""
     serializer_class = LessonPaymentSerializer
     queryset = Payment.objects.filter(lesson__isnull=False)  # уроки должны быть заполненны
     pagination_class = VehiclePaginator
     # permission_classes = [AllowAny]
 
 
-class SubscribeCourseView(generics.ListAPIView):
+class SubscribeCourseAPIView(generics.ListAPIView):
+    """Create Subscribe"""
     def post(self, request, course_id):
         user = request.user
         course = Course.objects.get(id=course_id)
@@ -92,16 +104,24 @@ class SubscribeCourseView(generics.ListAPIView):
         return Response(serializer.data)
 
 
-class UnsubscribeCourseView(generics.ListAPIView):
+class UnsubscribeCourseAPIView(generics.ListAPIView):
+    """Delete Subscribe"""
     def delete(self, request, course_id):
         user = request.user
         course = Course.objects.get(id=course_id)
         if not course:
-            return Response({'error': 'Course not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Курс не найден'}, status=status.HTTP_404_NOT_FOUND)
         subscription = CourseSubscription.objects.filter(user=user, course=course).first()
         if not subscription:
-            return Response({'error': 'Subscription not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Подписка не найдена'}, status=status.HTTP_404_NOT_FOUND)
         subscription.is_subscribed = False
         subscription.save()
         serializer = SubscriptionSerializer(subscription)
         return Response(serializer.data)
+
+class SubscrubeRetrieveAPIView(generics.RetrieveAPIView):
+    """Subscribe Retrive"""
+    serializer_class = SubscriptionSerializer
+    queryset = CourseSubscription.objects.all()
+    permission_classes = [AllowAny]
+

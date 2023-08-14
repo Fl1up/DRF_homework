@@ -33,6 +33,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name="Описание", **NULLABLE)
     url_video = models.CharField(max_length=50, verbose_name="Ссылка на видео", default="", **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    amount = models.ImageField(default=500, verbose_name="Цена")
 
     def __str__(self):
         return f"{self.title}"

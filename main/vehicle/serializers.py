@@ -1,7 +1,10 @@
+import stripe
+from django.shortcuts import render
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
 from main.vehicle.models import Course, Payment, Lesson, CourseSubscription
+from main.vehicle.services import payment
 from main.vehicle.validators import TitleValidator
 
 
@@ -24,6 +27,7 @@ class CourseSerializer(serializers.ModelSerializer):
     lessons_count = SerializerMethodField(source="payment")  # вывод числа
     subscribed = serializers.SerializerMethodField()
 
+
     class Meta:
         model = Course
         fields = '__all__'
@@ -31,6 +35,9 @@ class CourseSerializer(serializers.ModelSerializer):
             [TitleValidator(field="title"),
              serializers.UniqueTogetherValidator(fields=["title"], queryset=Course.objects.all())  # Уникальность
              ]
+
+        def get_subscribed(self, instance):
+            return payment(instance.amount)
 
     def get_lessons_view(self, obj):
         lessons = Lesson.objects.filter(course=obj)
@@ -104,3 +111,24 @@ class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseSubscription
         fields = "__all__"
+
+
+def payment(request):
+    if request.method == 'POST':
+        stripe.api_key = 'sk_test_51NexkmDyPJ4N4cRkA0ddCgzqu35kFSAYhrDChFbJKTWYYdmjFSXhWxNSExsSCAehSPhywRgXDD3EmB8Ib7D5Fc4m0074WtOdLC:'
+        token = request.POST.get('stripeToken')
+        amount = request.POST.get('amount')
+
+        try:
+            charge = stripe.Charge.create(
+                amount=amount,
+                currency='usd',
+                source=token,
+                description='Payment for course'
+            )
+            # Здесь можно добавить логику обработки успешного платежа
+            return render(request, 'success.html')
+        except stripe.error.CardError as e:
+            # Обработка ошибки оплаты
+            pass
+    return render(request, 'payment.html')
