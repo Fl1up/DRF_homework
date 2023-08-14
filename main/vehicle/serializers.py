@@ -71,7 +71,7 @@ class LessonCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        payment = validated_data.pop("payment")  # выдергивание ключа "payment" с проверкой наличия
+        payment = validated_data.get("payment", [])  # выдергивание ключа "payment" с проверкой наличия
         lesson_item = Lesson.objects.create(**validated_data)
 
         if payment:
@@ -79,6 +79,7 @@ class LessonCreateSerializer(serializers.ModelSerializer):
                 Payment.objects.create(**m, lesson=lesson_item)
 
         return lesson_item
+
 
 
 class CourseCreateSerializer(serializers.ModelSerializer):

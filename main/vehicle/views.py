@@ -76,7 +76,7 @@ class LessonPaymentAPIView(generics.ListAPIView):
     serializer_class = LessonPaymentSerializer
     queryset = Payment.objects.filter(lesson__isnull=False)  # уроки должны быть заполненны
     pagination_class = VehiclePaginator
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
 
 
 class SubscribeCourseView(generics.ListAPIView):
