@@ -58,24 +58,18 @@ class CourseSubscriptionTestCase(APITestCase):
         )
         return response
 
-    # def test_delete_subscription(self):
+    # def test_delete_subscription(self):  # не видит unsubscribe
     #     url = reverse('unsubscribe', args=[self.course.id, self.subscription.id])
     #     response = self.client.delete(url)
     #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
     #     self.assertFalse(CourseSubscription.objects.filter(id=self.subscription.id).exists())
     #
-    # def test_retrieve_subscription(self):
+    # def test_retrieve_subscription(self): # не видит subscribe-get
     #     url = reverse("subscribe-get", args=[self.subscription.id])
     #     response = self.client.get(url)
     #     self.assertEqual(response.status_code, status.HTTP_200_OK)
     #     self.assertEqual(response.data['email'], 'test@test.com')
 
-    # def test_update_subscription(self):
-    #     url = reverse('subscription-detail', args=[self.subscription.id])
-    #     data = {'email': 'updated@test.com'}
-    #     response = self.client.patch(url, data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.subscription.refresh_from_db()
-    #     self.assertEqual(self.subscription.email, 'updated@test.com')
+
 
 
