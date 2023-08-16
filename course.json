@@ -1,0 +1,20 @@
+[
+  {
+    "model": "main.vehicle.course",
+    "pk": 1,
+    "fields": {
+      "course_name": "Python",
+      "course_description": "lite version",
+      "course_preview": ""
+    }
+  },
+  {
+    "model": "main.vehicle.course",
+    "pk": 2,
+    "fields": {
+      "course_name": "SQL",
+      "course_description": "lite version",
+      "course_preview": ""
+    }
+  }
+]

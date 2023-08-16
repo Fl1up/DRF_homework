@@ -1,0 +1,57 @@
+[
+  {
+    "model": "Lesson.lesson",
+    "pk": 1,
+    "fields": {
+      "lesson_name": "1",
+      "lesson_description": "2121",
+      "lesson_preview": "",
+      "lesson_video_url": null,
+      "course": 1
+    }
+  },
+  {
+    "model": "Lesson.lesson",
+    "pk": 2,
+    "fields": {
+      "lesson_name": "2",
+      "lesson_description": "2121",
+      "lesson_preview": "",
+      "lesson_video_url": null,
+      "course": 1
+    }
+  },
+  {
+    "model": "Lesson.lesson",
+    "pk": 3,
+    "fields": {
+      "lesson_name": "3",
+      "lesson_description": "╙Ёюъ ъръ єЁюъ",
+      "lesson_preview": "",
+      "lesson_video_url": null,
+      "course": 1
+    }
+  },
+  {
+    "model": "Lesson.lesson",
+    "pk": 4,
+    "fields": {
+      "lesson_name": "4",
+      "lesson_description": "╙Ёюъ ъръ єЁюъ",
+      "lesson_preview": "",
+      "lesson_video_url": null,
+      "course": 2
+    }
+  },
+  {
+    "model": "Lesson.lesson",
+    "pk": 5,
+    "fields": {
+      "lesson_name": "5",
+      "lesson_description": "╙Ёюъ ъръ єЁюъ",
+      "lesson_preview": "",
+      "lesson_video_url": null,
+      "course": 2
+    }
+  }
+]

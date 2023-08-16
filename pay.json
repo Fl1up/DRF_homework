@@ -1,0 +1,38 @@
+[
+  {
+    "model": "pay.pay",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "pay_date": "2023-08-06",
+      "course_name": 1,
+      "lesson_name": null,
+      "pay_sum": 15000,
+      "payment_type": "Card"
+    }
+  },
+  {
+    "model": "pay.pay",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "pay_date": "2023-08-06",
+      "course_name": 2,
+      "lesson_name": null,
+      "pay_sum": 1520,
+      "payment_type": "CASH"
+    }
+  },
+  {
+    "model": "pay.pay",
+    "pk": 3,
+    "fields": {
+      "user": 2,
+      "pay_date": "2023-08-06",
+      "course_name": null,
+      "lesson_name": 2,
+      "pay_sum": 154545420,
+      "payment_type": "CASH"
+    }
+  }
+]
