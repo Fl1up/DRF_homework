@@ -17,7 +17,7 @@ router.register(r"course", CourseViewSet, basename="course")
 urlpatterns = [
     #
     path("lesson/create/", LessonCreateAPIView.as_view(), name="lesson_create"),
-    path("lesson/list/", LessonListAPIView.as_view(), name="lesson_list"),
+    path("Lesson/list/", LessonListAPIView.as_view(), name="lesson_list"),
     path("lesson/deteil/<int:pk>/", LessonRetrieveAPIView.as_view(), name="lesson_deteil"),
     path("lesson/update/<int:pk>/", LessonUpdateAPIView.as_view(), name="lesson_update"),
     path("lesson/delete/<int:pk>/", LessonDestroyAPIView.as_view(), name="lesson_delete"),
@@ -48,7 +48,5 @@ urlpatterns = [
       name="subscription_delete",
     ),
 
-    #Payment
-    path("payment/create/", PayCreateAPIView.as_view(), name="pay_create"),
 ] + router.urls
 

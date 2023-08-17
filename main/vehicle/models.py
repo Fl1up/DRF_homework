@@ -23,6 +23,7 @@ class Course(models.Model):
     price = models.FloatField(default=1000.00, verbose_name='Цена USD')
 
 
+
     def __str__(self):
         return f"{self.course_name} {self.course_description}"
 
@@ -51,8 +52,6 @@ class Lessons(models.Model):
     class Meta:
         verbose_name = "урок"
         verbose_name_plural = "уроки"
-
-
 
 class Pay(models.Model):
     CHOICES = (

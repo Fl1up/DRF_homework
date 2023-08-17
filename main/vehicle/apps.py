@@ -12,3 +12,4 @@ class PayConfig(AppConfig):
 class SubscriptionConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "main.vehicle"
+

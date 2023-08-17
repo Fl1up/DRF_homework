@@ -162,9 +162,9 @@ class CourseCreateSerializer(serializers.ModelSerializer):
 
         return course_item
 
+
 class SubscriptionSerializer(serializers.ModelSerializer):
     """Сериалайзер"""
-
     class Meta:
         model = Subscription
         fields = "__all__"
