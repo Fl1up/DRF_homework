@@ -48,5 +48,7 @@ urlpatterns = [
       name="subscription_delete",
     ),
 
+    #Payment
+    path("payment/create/", PayCreateAPIView.as_view(), name="pay_create"),
 ] + router.urls
 
