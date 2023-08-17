@@ -1,16 +1,17 @@
 import stripe
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
+from config import settings
 
 from main.vehicle.models import Course, Lessons, Pay, Subscription
 from main.vehicle.validators import TitleValidator
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class PaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Pay
         fields = "__all__"
-
 
 
 class LessonSerializer(serializers.ModelSerializer):
