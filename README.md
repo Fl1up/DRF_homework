@@ -31,3 +31,9 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  
+
+Далее вводим команды : 
+Сбор : sudo docker-compose build   
+Миграции : sudo docker-compose exec app python manage.py migrate   
+Поднятие : sudo docker-compose up   
